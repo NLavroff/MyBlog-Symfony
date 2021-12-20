@@ -7,31 +7,23 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=CategoryRepository::class)
- */
+#[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $CategoryName;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $name;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="Category")
-     */
-    private $categories;
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Article::class)]
+    private $articles;
 
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -39,14 +31,14 @@ class Category
         return $this->id;
     }
 
-    public function getCategoryName(): ?string
+    public function getName(): ?string
     {
-        return $this->CategoryName;
+        return $this->name;
     }
 
-    public function setCategoryName(string $CategoryName): self
+    public function setName(string $name): self
     {
-        $this->CategoryName = $CategoryName;
+        $this->name = $name;
 
         return $this;
     }
@@ -54,27 +46,27 @@ class Category
     /**
      * @return Collection|Article[]
      */
-    public function getCategories(): Collection
+    public function getArticles(): Collection
     {
-        return $this->categories;
+        return $this->articles;
     }
 
-    public function addCategory(Article $category): self
+    public function addArticle(Article $article): self
     {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-            $category->setCategory($this);
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeCategory(Article $category): self
+    public function removeArticle(Article $article): self
     {
-        if ($this->categories->removeElement($category)) {
+        if ($this->articles->removeElement($article)) {
             // set the owning side to null (unless already changed)
-            if ($category->getCategory() === $this) {
-                $category->setCategory(null);
+            if ($article->getCategory() === $this) {
+                $article->setCategory(null);
             }
         }
 

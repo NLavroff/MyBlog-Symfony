@@ -5,33 +5,23 @@ namespace App\Entity;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=ArticleRepository::class)
- */
+#[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: 'text')]
     private $content;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="categories")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $Category;
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'articles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $category;
 
     public function getId(): ?int
     {
@@ -64,12 +54,12 @@ class Article
 
     public function getCategory(): ?Category
     {
-        return $this->Category;
+        return $this->category;
     }
 
-    public function setCategory(?Category $Category): self
+    public function setCategory(?Category $category): self
     {
-        $this->Category = $Category;
+        $this->category = $category;
 
         return $this;
     }
