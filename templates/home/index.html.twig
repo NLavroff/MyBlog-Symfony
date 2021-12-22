@@ -27,7 +27,7 @@
     <div class="row">
         {% for article in pagination  %}
         <div class="col">
-            <div class="card" style="width: 25rem;">
+            <div class="card">
                 <img class="card-img-top" src="{{ asset('build/images/placeholder.png') }}">
                     <div class="card-body">
                         <h2 class="card-title">{{ article.title }} - Destination : {{ article.category.name }}</h2>
