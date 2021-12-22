@@ -24,22 +24,38 @@
 
 <div class="container">
     <h1> Tous les articles : </h1>
-    
-    {% for article in articles  %}
-        <div class="card" style="width: 25rem;">
-            <img class="card-img-top" src="{{ asset('build/images/placeholder.png') }}" alt="phuket">
-                <div class="card-body">
-                    <h2 class="card-title">{{ article.title }} - Destination : {{ article.category.name }}</h2>
-                    <p class="card-text">{{ article.content }}</p>
-                    <a href="#" class="btn btn-primary">Voir plus...</a>
-                </div>
+    <div class="row">
+        {% for article in pagination  %}
+        <div class="col">
+            <div class="card" style="width: 25rem;">
+                <img class="card-img-top" src="{{ asset('build/images/placeholder.png') }}">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ article.title }} - Destination : {{ article.category.name }}</h2>
+                        <p class="card-text">{{ article.content }}</p>
+                        <a href="#" class="btn btn-primary">Voir plus...</a>
+                    </div>
+            </div>
         </div>
+    
     {% else %}
+    </div>
         Aucun article trouvé.
-    {% endfor %}
+    {% endfor %}     
+</div>
 
+<div class="count">
+    {{ pagination.getTotalItemCount }}
+</div>
+
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+
+</div>
     <a href="{{ path('home') }}">
     Retour à l'accueil
     </a>
 </div>
+  
+
 {% endblock %}
+
