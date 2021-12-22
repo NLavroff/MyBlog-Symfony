@@ -3,11 +3,36 @@
 {% block title %} My Blog {% endblock %}
 
 {% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">MyBlog</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Articles</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Destinations</a>
+        </li>
+        </ul>
+    </div>
+
+    </nav>
+
+<div class="container">
     <h1> Tous les articles : </h1>
+    
     {% for article in articles  %}
-        <div>
-            <h2>{{ article.title }} - Destination : {{ article.category.name }}</h2>
-            <p>{{ article.content }}</p>
+        <div class="card" style="width: 25rem;">
+            <img class="card-img-top" src="{{ asset('build/images/placeholder.png') }}" alt="phuket">
+                <div class="card-body">
+                    <h2 class="card-title">{{ article.title }} - Destination : {{ article.category.name }}</h2>
+                    <p class="card-text">{{ article.content }}</p>
+                    <a href="#" class="btn btn-primary">Voir plus...</a>
+                </div>
         </div>
     {% else %}
         Aucun article trouvé.
@@ -16,5 +41,5 @@
     <a href="{{ path('home') }}">
     Retour à l'accueil
     </a>
-
+</div>
 {% endblock %}
